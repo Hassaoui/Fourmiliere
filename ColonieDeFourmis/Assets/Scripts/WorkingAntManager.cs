@@ -97,7 +97,7 @@ public class WorkingAntManager : MonoBehaviour
 
 
 
-    //fonction qui initialise toutes les variables et listes au début du programme
+    //fonction qui initialise toutes les variables et listes au dÃ©but du programme
     private void Start()
     {
 		for (int i = 0; i < startingFoodGm; i++)
@@ -112,8 +112,8 @@ public class WorkingAntManager : MonoBehaviour
 
     }
 
-    //fonction qui est appeler à chaque frame et qui modifie la position de chaque fourmi
-    //la fonction fait aussi prendre des decisions aux fourmi à chaque frame comme ça elle sont plus flexible sur l'actions qu'elles vont faire
+    //fonction qui est appeler Ã  chaque frame et qui modifie la position de chaque fourmi
+    //la fonction fait aussi prendre des decisions aux fourmi Ã  chaque frame comme Ã§a elle sont plus flexible sur l'actions qu'elles vont faire
 	private void Update()
 	{
         //boucle qui sort le nombre de fourmi qui ne font rien
@@ -124,7 +124,7 @@ public class WorkingAntManager : MonoBehaviour
                 antdoingNothing += 1;
 		}
 
-        //création d'une fonction qui va calculer le mouvement des fourmis en parallele
+        //crÃ©ation d'une fonction qui va calculer le mouvement des fourmis en parallele
         MoveAnts movement = new MoveAnts
         {
             deltaTime = Time.deltaTime,
@@ -133,11 +133,11 @@ public class WorkingAntManager : MonoBehaviour
             targetAnts = _antsTarget,
         };
 
-        //copmmencenemnt de la fonction en parallèle
+        //copmmencenemnt de la fonction en parallÃ¨le
         JobHandle jobHandle = movement.Schedule(workingAntsList.Count, 100);
         jobHandle.Complete();
 
-        //création de la fonction en parallèle qui va faire prendre les decision aux fourmis
+        //crÃ©ation de la fonction en parallÃ¨le qui va faire prendre les decision aux fourmis
         DecisionAnts takeDecision = new DecisionAnts
         {
             _antsState = antsState,
@@ -154,12 +154,12 @@ public class WorkingAntManager : MonoBehaviour
             threshOldTooManyPeopleInLineQueen = threshOldTooManyPeopleInLineQueen,
         };
 
-        //commencememnt de la fonction qui va faire prendre des decisions en parallèle aux fourmis
+        //commencememnt de la fonction qui va faire prendre des decisions en parallÃ¨le aux fourmis
         JobHandle jobHandle1 = takeDecision.Schedule(workingAntsList.Count, 100);
         jobHandle1.Complete();
 
-        //mets a jour ce qui a été changer des les fonctions en parallèle dans les fourmis
-        //ces fonctions ne peuvent pas être appeler en parallèle car elles dépendent d'objets qui ne peuvent pas être accéder en parallèle
+        //mets a jour ce qui a Ã©tÃ© changer des les fonctions en parallÃ¨le dans les fourmis
+        //ces fonctions ne peuvent pas Ãªtre appeler en parallÃ¨le car elles dÃ©pendent d'objets qui ne peuvent pas Ãªtre accÃ©der en parallÃ¨le
         for (int i = 0; i < workingAntsList.Count; i++)
         {
             workingAntsList[i].transform.position = positionArray[i];
@@ -177,8 +177,8 @@ public class WorkingAntManager : MonoBehaviour
     //-------------------------------- GARDE MANGER ----------------------------------
 
     //fonction qui decique qui peut entrer le garde manger entre le premier de la ligne des reines et la ligne des sources de nourriture
-    //cette decision est alléatoire de base, mais plusieurs conditions sont ajouter pour que la decision soit la bonne dans certaines situations, 
-    //mais sinon elle est alléatoire
+    //cette decision est allÃ©atoire de base, mais plusieurs conditions sont ajouter pour que la decision soit la bonne dans certaines situations, 
+    //mais sinon elle est allÃ©atoire
     private bool DecisionOnWhoEntersGMNext()
 	{
         if (AntsInLineFromSource.Count == 0 && AntsInLineForQueen.Count == 0)
@@ -235,8 +235,8 @@ public class WorkingAntManager : MonoBehaviour
 
     }
 
-    //fonction appeler chaque frame pour reduire le temps entre les fourmis qui peuvent entre dans le garde mangé
-    //lorsque le timer arrive à 0 la decsion sur qui peut entre dans le garde mangé est prise
+    //fonction appeler chaque frame pour reduire le temps entre les fourmis qui peuvent entre dans le garde mangÃ©
+    //lorsque le timer arrive Ã  0 la decsion sur qui peut entre dans le garde mangÃ© est prise
     private void ReduceTimerGM()
     {
         timerPPl -= Time.deltaTime;
@@ -249,14 +249,14 @@ public class WorkingAntManager : MonoBehaviour
         }
     }
 
-    //fonction qui ajoute de la nourriture dans le garde mangé
+    //fonction qui ajoute de la nourriture dans le garde mangÃ©
     public void PutFoodInGM()
 	{
         foodInGM += 1;
         UIFood.text = (foodInGM).ToString();
         GMmanager.AddLeafGM();
     }
-    //fonction qui enlève de la nourriture dans le garde mangé
+    //fonction qui enlÃ¨ve de la nourriture dans le garde mangÃ©
     public void TakeFoodFromGM()
 	{
         foodInGM -= 1;
@@ -265,7 +265,7 @@ public class WorkingAntManager : MonoBehaviour
     }
 
     //-------------------------------- FOOD PER QUEEN ----------------------------------
-    //fonction qui change la quantité de nourriture que chaque reine a dans un tableau de int utilise dans la prise de decision
+    //fonction qui change la quantitÃ© de nourriture que chaque reine a dans un tableau de int utilise dans la prise de decision
     public void UpdateFoodForQueen()
     {
         for (int i = 0; i < FoodPerQueen.Length; i++)
@@ -274,7 +274,7 @@ public class WorkingAntManager : MonoBehaviour
         }
     }
 
-    //donction qui retourne le chamin vers la reine qui est demandé
+    //donction qui retourne le chamin vers la reine qui est demandÃ©
     public List<Transform> GetPathQueenByID(int id)
 	{
         if (id == 0)
@@ -287,7 +287,7 @@ public class WorkingAntManager : MonoBehaviour
             return PathToQueen3;
         return PathToQueen4;
      }
-    //fonction qui ajoute de la nourrite à la queen demandé
+    //fonction qui ajoute de la nourrite Ã  la queen demandÃ©
     public void AddToQueen(int id)
     {
         if(id < queenList.Count)
@@ -297,7 +297,7 @@ public class WorkingAntManager : MonoBehaviour
         }
     }
     //-------------------------------- FOOD PER SOURCE ----------------------------------
-    //fonction qui change la quantité de nourriture que chaque soource a dans un tableau de int utilise dans la prise de decision
+    //fonction qui change la quantitÃ© de nourriture que chaque soource a dans un tableau de int utilise dans la prise de decision
     public void UpdateFoodSource()
     {
 		for (int i = 0; i < FoodPerSource.Length; i++)
@@ -306,7 +306,7 @@ public class WorkingAntManager : MonoBehaviour
 		}
     }
 
-    //fonction qui enlève une feuille de la source qui est demandé
+    //fonction qui enlÃ¨ve une feuille de la source qui est demandÃ©
     public void RemoveFromSource(int id)
     {
         if (id < foodSourceList.Count)
@@ -322,7 +322,7 @@ public class WorkingAntManager : MonoBehaviour
         antsState[idAnt] = newState;
 	}
 
-    //mets le path qui faut à chaque fourmis à chaque update
+    //mets le path qui faut Ã  chaque fourmis Ã  chaque update
     private void setPathWorkers()
 	{
         for(int i = 0; i < workingAntsList.Count; i++)
@@ -418,7 +418,8 @@ public class WorkingAntManager : MonoBehaviour
     }
 }
 
-//fonction qui change la position de chaque fourmi en parallèle
+//fonction qui change la position de chaque fourmi en parallÃ¨le
+[BurstCompile]
 public struct MoveAnts : IJobParallelFor
 {
     public NativeArray<float3> PositionAnts;
@@ -442,6 +443,7 @@ public struct MoveAnts : IJobParallelFor
 }
 
 //fonction qui prend une decision sur quoi faire en parallele pour chaque fourmi
+[BurstCompile]
 public struct DecisionAnts : IJobParallelFor
 {
 
@@ -524,7 +526,7 @@ public struct DecisionAnts : IJobParallelFor
                 justChanged = true;
             }
 		}
-        //prend une decision sur quoi quelle source visé losqu'elle va prendre de la nourriture a une source
+        //prend une decision sur quoi quelle source visÃ© losqu'elle va prendre de la nourriture a une source
         if (_antsState[index] == 1)
         {
 
@@ -585,7 +587,7 @@ public struct DecisionAnts : IJobParallelFor
             }
 
         }
-        //prend la decision sur quelle reine aller nourrire selon la quantité de nourriture de chaque reine
+        //prend la decision sur quelle reine aller nourrire selon la quantitÃ© de nourriture de chaque reine
         if (_antsState[index] == 5)
         {
             int idlowestQueen = -1;
